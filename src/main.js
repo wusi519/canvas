@@ -4,7 +4,7 @@ const ctx = canvas.getContext("2d")
 canvas.width = document.documentElement.clientWidth
 canvas.height = document.documentElement.clientHeight
 
-ctx.lineWidth = 10
+ctx.lineWidth = 1
 
 let painting = false
 let last

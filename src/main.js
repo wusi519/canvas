@@ -4,7 +4,7 @@ const ctx = canvas.getContext("2d")
 canvas.width = document.documentElement.clientWidth
 canvas.height = document.documentElement.clientHeight
 
-ctx.lineWidth = 1
+ctx.lineWidth = 10
 
 let painting = false
 let last
@@ -18,13 +18,16 @@ ctx.fillStyle = "red"
 ctx.lineCap = "round"
 let isTouchDevice = "ontouchstart" in document.documentElement
 if (isTouchDevice) {
+  canvas.ontouchstart = e => {
+    let x = e.touches[0].clientX
+    let y = e.touches[0].clientY
+    last = [x, y]
+  }
   canvas.ontouchmove = e => {
-    console.log(e)
-    let x1 = e.touches[0].clientX - 5
-    let y1 = e.touches[0].clientY - 5
-    let x2 = e.touches[0].clientX + ctx.lineWidth
-    let y2 = e.touches[0].clientY + ctx.lineWidth
-    drawLine(x1, y1, x2, y2)
+    let x = e.touches[0].clientX
+    let y = e.touches[0].clientY
+    drawLine(last[0], last[1], x, y)
+    last = [x, y]
   }
 } else {
   canvas.onmousedown = e => {
